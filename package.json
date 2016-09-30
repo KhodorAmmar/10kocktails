@@ -34,8 +34,7 @@
   "scripts": {
     "start": "node server.js",
     "api": "DEBUG=api nodemon server.js",
-    "dev": "rm -rd dist | true && gulp",
-    "deploy": "rm -rd dist | true && gulp prod && eb deploy akapart"
+    "dev": "rm -rd dist | true && gulp"
   },
   "description": "Hello",
   "main": "server.js",
