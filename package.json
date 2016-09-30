@@ -1,0 +1,49 @@
+{
+  "name": "10cocktailbytes",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "debug": "^2.2.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.6.1",
+    "serve-static": "^1.10.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.4.0",
+    "browser-sync": "^2.14.0",
+    "cssnano": "^3.7.3",
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-compile-handlebars": "^0.6.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-sitemap": "^4.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "jquery": "^3.0.0",
+    "node-notifier": "^4.6.0",
+    "pixrem": "^3.0.1",
+    "pump": "^1.0.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "api": "DEBUG=api nodemon server.js",
+    "dev": "rm -rd dist | true && gulp",
+    "deploy": "rm -rd dist | true && gulp prod && eb deploy akapart"
+  },
+  "description": "Hello",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/prototypeinteractive/akapart.git"
+  },
+  "author": "Prototype",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/prototypeinteractive/akapart#readme"
+}

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {{>head}}
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        document.querySelector(".st-container").style.overflow = 'hidden';
+    }, true);
+    </script>
+</head>
+
+<body class="s1">
+    <div class="st-container">
+        <div class="dots">
+            <ul>
+                <li id="d1">&nbsp;</li>
+                <li id="d2">&nbsp;</li>
+                <li id="d3">&nbsp;</li>
+                <li id="d4">&nbsp;</li>
+                <li id="d5">&nbsp;</li>
+                <li id="d6">&nbsp;</li>
+            </ul>
+        </div>
+        <main class="st-scroll">
+            <section id="step1" class=" white">
+                <div class="content">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="logo" viewBox="0 0 255.1 141.7">
+                        <path d="M93 125v-8.5h59v8.4zm59-81l-29.5 29.3L93 44v11.8l19 19H93v8.4h59v-8.4h-19l19-19zM93 87.3v24.8h59V87.4H93zm50.5 16.3h-42V96h42v7.7z" />
+                        <path d="M110.8 44l-27-27-3 3 24 24h-6l23.7 23.8 23.8-24z" class="st0" />
+                    </svg>
+                    <h1><span>3</span>Steps. <span>1</span>Cocktail
+                    <small>A unique 10kb mix is waiting for you.</small></h1>
+                    <div class="actionButtons">
+                        <a class="btn next" data-next='2' href='#'>Start</a>
+                        <a class="btn next" data-next='5' href='#' onclick="tk.startCounterToGetCocktails(true);">Surprise Me!</a>
+                    </div>
+                </div>
+            </section>
+            <section id="step2" class=" grey">
+                <div id="wc1" class="wave start"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" id="rum" class="whiskey" viewBox="0 0 100 125">
+                    <path d="M60.3 56.7c-2 0-1.7-1.7-1.7-1.7V45s-2-8-2.3-8.4C55.8 36 56 25 56 25h.7v-6.6h-.4v-2c0-.8.3-2.6-2-2.6h-8.8c-2.2 0-2 1.8-2 2.6v2h-.3V25h.7s0 11-.4 11.6c-.5.5-2.3 5.3-2.3 8.5v10s.2 1.7-1.7 1.7-12 2-12 12.3c0 0 2.5 37.4 2.7 37.8 0 .5 2.3 4.4 11 4.4h17.4c8.8 0 11-4 11-4.4.2-.5 2.8-37.8 2.8-37.8-.4-10.2-10.3-12.3-12.2-12.3zM49.8 99C43.3 99 38 91.3 38 82s5.3-16.7 11.8-16.7S61.6 72.8 61.6 82s-5.3 17-11.8 17z" class="st0" />
+                    <ellipse cx="49.8" cy="82.1" class="st0" rx="10.5" ry="14.9" />
+                </svg>
+                <div class="content">
+                    <h2>1 Select Your Spirit</h2>
+                    <input type="text" id="SpiritFilter" title="spirit filter" name="spiritfilter" class="lf" placeholder="Search your spirit" oninput="tk.filterSpirits()" />
+                    <ul class="list" id="slist">
+                    </ul>
+                    <a id="btn-add-spirits" class="btn next disabled" data-next='3' href='#'>Add</a>
+                </div>
+            </section>
+            <section id="step3" class=" green">
+                <div id="wc2" class="wave start"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" id="fruit" viewBox="0 0 100 125">
+                    <path d="M68 34c7-3 10-6.5 10-6.5-5.6-2-14 1.3-14 1.3 8-8 6-12.2 6-12.2C57.6 18 52.5 27.4 52.5 27.4 54.2 9 51.3 5.2 51.3 5.2c-5-1-6.5 2.4-6.5 2.4 7 12 6 20 6 20-5-9-13.5-11.3-13.5-11.3C35.6 24 40 28 40 28c-11.2-6.4-16.5-2.7-16.5-2.7s4.8 4.2 11.8 7.5c-8.5 2.2-18 8-17.2 23C19.3 77.3 38.6 92.5 49 94.7c.4 0 .7 0 1 .2h1.6c8.3 0 22.7-11.4 28.4-30.4l.4-1.3.4-1.4v-.2L81 60l.3-1.2v-.2l.2-1.3.4-2.6C83 45 79.6 37.4 68 34zM28 65.2c-.7 0-1.5-1-1.7-2.4 0-1.5.4-2.7 1.3-2.8.8 0 1.6 1 1.8 2.4 0 1.5-.4 2.7-1.3 2.7zM29.3 52c-.8 0-1.6-1-1.8-2.4 0-1.4.4-2.6 1.3-2.7.8-.2 1.6 1 1.8 2.3 0 1.5-.5 2.7-1.3 2.7zM50 55.7c-1 0-1.7-1-2-2.4 0-1.4.5-2.6 1.4-2.7.8 0 1.6 1 1.8 2.4 0 1.5-.5 2.7-1.3 2.7zM34.3 74.3c-.8 0-1.6-1-1.8-2.4 0-1.5.4-2.7 1.3-2.8.7 0 1.5 1 1.7 2.4 0 1.4-.5 2.6-1.3 2.7zM39 55c-.7.2-1.5-1-1.7-2.3 0-1.4.4-2.6 1.3-2.7.8 0 1.6 1 1.8 2.4C40.4 54 40 55 39 55zm2 6.5c1 0 1.7 1 2 2.4 0 1.3-.5 2.5-1.4 2.6-.8 0-1.6-1-1.8-2.4 0-1.4.5-2.6 1.3-2.7zm1.2 21.7c-.8 0-1.6-1-1.8-2.4 0-1.4.4-2.6 1.3-2.7.8 0 1.6 1 1.8 2.5 0 1.4-.5 2.6-1.3 2.7zm7-10.6c-.8 0-1.6-1-1.8-2.4 0-1.4.4-2.6 1.3-2.7.8 0 1.6 1 1.8 2.4 0 1.3-.5 2.5-1.3 2.6zM51.5 88c-.8 0-1.6-1-1.8-2.5 0-1.4.4-2.6 1.3-2.7.8 0 1.6 1 1.8 2.4 0 1.4-.5 2.6-1.3 2.7zm6-9.3c-.8 0-1.6-1-1.8-2.4 0-1.4.4-2.6 1.3-2.7.8 0 1.6 1 1.8 2.4 0 1.4-.5 2.6-1.3 2.7zm.8-12.7c-.8 0-1.6-1-1.8-2.4 0-1.4.4-2.6 1.3-2.7.8-.2 1.6 1 1.8 2.3 0 1.5-.5 2.6-1.3 2.7zm2.5-11.6c-.8 0-1.6-1-1.8-2.4 0-1.4.4-2.6 1.3-2.7.8 0 1.6 1 1.8 2.4.2 1.4-.3 2.6-1.2 2.7z" class="st0" />
+                </svg>
+                <div class="content">
+                    <h2>2 Select Your Ingredients</h2>
+                    <input type="text" id="IngredientFilter" title="ingredient filter" name="IngredientFilter" class="lf" placeholder="Search your ingredient" oninput="tk.filterIngredients()" />
+                    <ul class="list" id="ilist">
+                    </ul>
+                    <a id="btn-add-ingredients" class="btn next disabled" data-next='4' href='#'>Add</a>
+                </div>
+            </section>
+            <section id="step4" class="green">
+                <div class="content">
+                    <h2 class="confirm">Are you ready for your cocktail?</h2>
+                    <div>
+                        <a class="btn invert" href="#" onclick="tk.startOver(false)">Not yet</a>
+                        <a class="btn next" data-next='5' href="#" onclick="tk.startCounterToGetCocktails();">Yes!</a>
+                    </div>
+                </div>
+            </section>
+            <section id="step5" class="red start">
+                <div id="wc3" class="wave start"></div>
+                <div class="liquid start lc"></div>
+                <div class="content">
+                    <h3>Mixing kilobytes of ingredients</h3>
+                    <h2><span id="counter" class="counter">1</span>Kb of cocktail</h2>
+                </div>
+            </section>
+            <section id="step6" class="red start">
+                <div class="liquid start lc"></div>
+                <div class="content"> <span class="" id="gh">
+                    <svg id="glass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M82.8 7.8c-.7-.5-1.6-.4-2 .2L69 22.7H41C40 16.7 35 12 28.8 12c-6.7 0-12 5.5-12 12.2s5.2 12 12 12c1.7 0 3.4-.3 5-1l17.7 23v31.3H36.3c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h33.4c.8 0 1.5-.7 1.5-1.5s-.7-1.5-1.5-1.5h-15V58L80 25c.5-.4.5-1 .3-1.5-.3-.5-.8-.8-1.4-.8h-6L83 10c.6-.7.5-1.7-.2-2.2zM47 40.8c-.8 0-1.5-.6-1.5-1.4S46.2 38 47 38s1.5.6 1.5 1.4c0 .8-.7 1.5-1.5 1.5zm17.2-12h-2.6c-4.6 0-7 .8-9 1.6-2.2.7-4.2 1.4-8.2 1.4-4 0-6-.7-8-1.4l-3.3-1-2.7-3.7h36.4L64.2 29zm11.5-3l-4 5-1-.5-3-1 2.8-3.6h5.2z" class="st0"/></svg></span>
+                    <span id="cn" class="h2"></span>
+                    <div style="Width: 100%" class="cl">
+                        <div class="col-6">
+                            <h4>Ingredients</h4>
+                            <ul id="coi"></ul>
+                        </div>
+                        <div class="col-6">
+                            <h4>How to mix</h4>
+                            <ul id="cos"></ul>
+                        </div>
+                    </div>
+                    <div class="another-cocktail">
+                        <h2>Maybe another 10kb cocktail?</h2>
+                        <a class="btn next" href="#" onclick="tk.startOver(true);">Yes!</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    {{>scripts}}
+</body>
+
+</html>

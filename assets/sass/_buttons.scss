@@ -1,0 +1,46 @@
+.btn {
+    position: relative;
+    display: inline-block;
+    height: 66px;
+    min-width: 150px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 400px;
+    line-height: 66px;
+    color: $white;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #fff;
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.8;
+    }
+}
+
+.white .btn,
+.grey .btn {
+    background-color: $red;
+    color: white;
+}
+
+.green .btn {
+    color: $green;
+}
+
+.green .btn.invert {
+    background-color: $green;
+    color: #fff;
+}
+
+#step6 .btn {
+    color: $red;
+}
+
+.btn {
+    text-decoration: none;
+}

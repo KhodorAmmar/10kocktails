@@ -1,0 +1,197 @@
+#wc1 {
+    background: #ffffff;
+}
+
+#wc1 .shape {
+    fill: $gray;
+}
+
+#wc2 {
+    background: $gray;
+}
+
+#wc2 .shape {
+    fill: $green;
+}
+
+#wc3 {
+    background: $green;
+}
+
+#wc3 .shape {
+    fill: $red;
+}
+
+.red .liquid {
+    background: $red;
+}
+
+.wave {
+    position: absolute;
+    height: 150px;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+.wave .wc {
+    animation-name: wave-traverse;
+    //animation-duration: 10s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-origin: left bottom;
+}
+
+.wave .waveSvg {
+    animation-name: wave-scale;
+    //animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-origin: left bottom;
+}
+
+// .wave .shape {
+//   fill: black;
+// }
+@keyframes wave-traverse {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-1000px);
+    }
+}
+
+@keyframes wave-scale {
+    0% {
+        transform: scaleX(1) scaleY(0.5);
+    }
+    100% {
+        transform: scaleX(6) scaleY(1);
+    }
+}
+
+.liquid {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    //background: black;
+}
+
+.liquid .container {
+    position: relative;
+}
+
+.liquid .ice {
+    position: absolute;
+}
+
+.liquid .ice .inner {
+    width: 75px;
+    height: 75px;
+    background: white;
+    border-radius: 10px;
+    opacity: 0.5;
+}
+
+.liquid .bubble {
+    position: absolute;
+    height: 100%;
+}
+
+.liquid .bubble .inner {}
+
+.liquid.start .ice {
+    animation-name: ice-bobbing;
+    //animation-duration: 3s;
+    //animation-timing-function: ease-in-out;
+    //animation-iteration-count: infinite;
+    //animation-direction: alternate;
+}
+
+.liquid.start .ice,
+.liquid.start .bubble {
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.liquid.start .bubble {
+    animation-name: bubble-wiggle;
+}
+
+.liquid.start .bubble .outer {
+    height: 100%;
+    animation-name: bubble-up;
+    //animation-duration: 10s;
+    //animation-timing-function: linear;
+    //animation-iteration-count: infinite;
+    //animation-direction: normal;
+}
+
+.liquid.start .bubble .outer,
+.liquid.start .ice .inner {
+    //animation-name: ice-rotation;
+    // animation-duration: 40s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+@keyframes ice-rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes ice-rotation-reverse {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes ice-bobbing {
+    0% {
+        transform: translateY(-30px);
+    }
+    100% {
+        transform: translateY(30px);
+    }
+}
+
+@keyframes bubble-wiggle {
+    0% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes bubble-wiggle-reverse {
+    0% {
+        transform: translateX(10px);
+    }
+    100% {
+        transform: translateX(-10px);
+    }
+}
+
+@keyframes bubble-up {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
