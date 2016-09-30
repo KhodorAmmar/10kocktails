@@ -1,1 +1,440 @@
-"use strict";function callFetch(e,t,n){if(window.fetch)return void window.fetch(e,t).then(function(e){return e.json()}).then(n).catch(function(e){console.error(e)});var r=function(){var e;if(window.XMLHttpRequest)e=new XMLHttpRequest;else try{e=new ActiveXObject("Microsoft.XMLHTTP")}catch(t){e=null}return e},i=r();i.onreadystatechange=function(){4===i.readyState&&n(JSON.parse(i.responseText))},i.open("GET",e,!0),i.setRequestHeader("Content-type","application/x-www-form-urlencoded"),i.send(t)}function getElementById(e){return document.getElementById(e)}function getElementsByTagName(e){return document.getElementsByTagName(e)}function querySelector(e){return document.querySelector(e)}function querySelectorAll(e){return document.querySelectorAll(e)}function getElementsByName(e){return document.getElementsByName(e)}function capitalizeFirstLetter(e){return e=e.toLowerCase(),e.charAt(0).toUpperCase()+e.slice(1)}var tk={};!function(){function e(){var e=getElementById("slist"),t=["white rum","dry vermouth","tequila","vodka","gin","angostura","cognac","champagne","Cointreau","Bourbon","Calvados","Triple sec","lager","whiskey","Elderflower liqueur","beer","brandy","canadian whisky","blackcurrant liqueur","gold rum","dark rum","jägermeister","coconut rum","Sloe gin","peach schnapps","limoncello","Scotch","irish whiskey","peppermint schnapps","black raspberry liqueur","coffee liqueur","cherry liqueur","stout beer","Orange Bitters","apricot brandy","sweet vermouth","Irish Mist","Amaretto","Goldschläger"];t=t.sort(function(e,t){return e<t?-1:e>t?1:0});for(var n=[],r=0,i=t.length;r<i;r++)n.push('<li><input type="checkbox" name="spirit" id="s'+r+'"><label for="s'+r+'">'+capitalizeFirstLetter(t[r].toLowerCase())+"</label></li>");e.innerHTML=n.join("")}function t(){var e=getElementById("ilist"),t=["sugar syrup","lime juice","ice cubes","Sprite","grapefruit juice","cherry","lemon juice","club soda","honey","ice","tonic","green tea","almond milk","cinnamon","banana","sugar cube","mint leaves","cola","irish cream","Crème de Cacao","milk","orange juice","pineapple juice","coconut cream","tabasco sauce","White Crème de Cacao","chocolate syrup","basil","sugar","ice cream"];t=t.sort(function(e,t){return e<t?-1:e>t?1:0});for(var n=[],r=0,i=t.length;r<i;r++)n.push('<li><input type="checkbox" name="ingredient" id="i'+r+'"><label for="i'+r+'">'+capitalizeFirstLetter(t[r])+"</label></li>");e.innerHTML=n.join("")}var n=document.getElementsByTagName("body")[0],r=function(e){if(e&&e.cocktails&&!(e.cocktails.length<=0)){var t=e.cocktails[0];getElementById("cn").innerText=t.name;var r=getElementById("coi"),i=[];t.ingredients.forEach(function(e){i.push("<li><span>"+e.description+"</span></li>"),getElementById("gh").className+=e.description+" "}),r.innerHTML=i.join("");var a=getElementById("cos");i=[],t.steps.forEach(function(e){i.push("<li><span>"+e+"</span></li>")}),a.innerHTML=i.join(""),n.className="s6"}},i=function(){var e=function(e){var t="?";return e.forEach(function(e){"?"!==t&&(t+="&"),t+="ing="+e}),t},t=Array.prototype.slice.call(getElementsByName("ingredient"),0),n=Array.prototype.slice.call(getElementsByName("spirit"),0),i=[].concat(t,n),a=i.filter(function(e){return e.checked}).map(function(e){return querySelector("label[for="+e.id+"]").innerText});a&&a.length>0&&callFetch("/api/v1/cocktails"+e(a),a,r)},a=function(){callFetch("/api/v1/cocktails/random",[],r)};tk.startCounterToGetCocktails=function(e){var t=300,n=1,r=getElementById("counter"),c=function(){r.innerText=n,n++,n>10?e?a():i():setTimeout(c,t)};setTimeout(c,t)};var c=function(e,t){return e.className&&new RegExp("(\\s|^)"+t+"(\\s|$)").test(e.className)},o=function(e,t){e.className+=t},s=function(e,t){e.className=e.className.replace(t,"")};tk.filterSpiritsConcurrencyGuid=null,tk.filterSpirits=function(){var e=(new Date).toJSON();tk.filterSpiritsConcurrencyGuid=e;var t=getElementById("SpiritFilter").value,n=Array.prototype.slice.call(getElementsByName("spirit"),0);try{n.forEach(function(n){var r=tk.filterSpiritsConcurrencyGuid!==e;if(r)throw{};var i=n.id,a=n.parentElement,l=querySelector("label[for="+i+"]").innerText,u=!t||l.toUpperCase().indexOf(t.toUpperCase())>=0,d=u&&c(a,"hide")||n.checked,m=!u&&!c(a,"hide")&&!n.checked;d?s(a,"hide"):m&&o(a,"hide")},this)}catch(e){}},tk.filterIngredientsConcurrencyGuid=null,tk.filterIngredients=function(){var e=(new Date).toJSON();tk.filterIngredientsConcurrencyGuid=e;var t=getElementById("IngredientFilter").value,n=Array.prototype.slice.call(getElementsByName("ingredient"),0);try{n.forEach(function(n){var r=tk.filterIngredientsConcurrencyGuid!==e;if(r)throw{};var i=n.id,a=n.parentElement,l=querySelector("label[for="+i+"]").innerText,u=!t||l.toUpperCase().indexOf(t.toUpperCase())>=0,d=u&&c(a,"hide")||n.checked,m=!u&&!c(a,"hide")&&!n.checked;d?s(a,"hide"):m&&o(a,"hide")},this)}catch(e){}},tk.startOver=function(e){return n.className="s2",e&&Array.prototype.slice.call(getElementsByTagName("input"),0).filter(function(e){return e.checked}).map(function(e){e.checked=!1}),!1};var l=function(){var e=Array.prototype.slice.call(getElementsByName("ingredient"),0);e.forEach(function(e){e.addEventListener("change",function(){querySelector('input[name="ingredient"]:checked')?s(getElementById("btn-add-ingredients"),"disabled"):o(getElementById("btn-add-ingredients"),"disabled"),tk.filterIngredients()})});var t=Array.prototype.slice.call(getElementsByName("spirit"),0);t.forEach(function(e){e.addEventListener("change",function(){querySelector('input[name="spirit"]:checked')?s(getElementById("btn-add-spirits"),"disabled"):o(getElementById("btn-add-spirits"),"disabled")})})};document.addEventListener("DOMContentLoaded",function(r){for(var i=querySelectorAll(".next"),a=0,c=i.length;a<c;a++)i[a].addEventListener("click",function(e){e.preventDefault();var t=this.dataset.next;n.className="s"+t});e(),t(),l()})}(),function(){function e(){for(var e=document.getElementsByClassName("lc"),i=0;i<e.length;i++){var a=e[i];if(a){for(var c=['<div class=".container">'],l=0;l<o;l++)c.push(n());for(var u=0;u<s;u++)c.push(r());c.push("</div>"),a.innerHTML=c.join("")}}for(var d=document.getElementsByClassName("wave"),i=0;i<d.length;i++)d[i].innerHTML=t()}function t(){var e=i(5,10)+"s",t=i(10,20)+"s",n={"animation-duration":e},r={"animation-duration":t},a=[];return a.push('<div class="container"><div class="wc" style="'+c(r)+'"><svg xmlns="http://www.w3.org/2000/svg" style="'+c(n)+'"  width="3275" height="150" class="waveSvg">'),a.push('<path stroke="transparent" d="M0 200V80c40-70 65-70 95 0s55 70 85 0 60-70 95 0 55 70 95 0 50-70 95 0 45 70 95 0 40-70 95 0v120z" class="shape" transform="scale(4 1)"/></svg></div></div>'),a.join("")}function n(e,t){e="undefined"==typeof e?i(20,85)+"%":e,t="undefined"==typeof t?i(10,90)+"%":t;var n=i(2,4)+"s",r=i(30,50)+"s",o="ice-rotation"+(a()?"":"-reverse"),s={top:e,left:t,"animation-duration":n},l={"animation-duration":r,"animation-name":o},u='<div class="inner" style="'+c(l)+'">&nbsp;</div>',d='<div class="ice" style="'+c(s)+'">'+u+"</div>";return d}function r(){var e=i(0,100),t=i(3,10),n=t/2,r=i(.1,.5),o=i(5,20)+"s",s=i(1,2)+"s",l=("bubble-wiggle"+(a()?"":"-reverse"),{"animation-duration":o}),u={left:e+"%","animation-duration":s},d='<svg height="'+t+'" width="'+t+'" opacity="'+r+'"><circle cx="'+n+'" cy="'+n+'" r="'+n+'" fill="white" /></svg>',m='<div class="outer" style="'+c(l)+'"><div class="inner">'+d+"</div></div>",f='<div class="bubble" style="'+c(u)+'">'+m+"</div>";return f}function i(e,t){return e+Math.random()*(t-e)}function a(){return Math.random()>.5}function c(e){var t="";for(var n in e)t+=n+": "+e[n]+";";return t}var o=5,s=40;e()}();
+'use strict';
+var tk = {};
+
+(function() {
+
+    var body = document.getElementsByTagName('body')[0];
+
+    var fillCocktailData = function(data) {
+        if (!data || !data.cocktails || data.cocktails.length <= 0) {
+            return;
+        }
+        var cocktail = data.cocktails[0];
+
+        getElementById("cn").innerText = cocktail.name;
+
+        var cocktailIngredients = getElementById("coi");
+        var html = [];
+        cocktail.ingredients.forEach(function(ingredient) {
+            html.push("<li><span>" + ingredient.description + "</span></li>");
+            getElementById("gh").className += ingredient.description + " ";
+        });
+        cocktailIngredients.innerHTML = html.join('');
+
+        var cocktailSteps = getElementById("cos");
+        html = [];
+        cocktail.steps.forEach(function(step) {
+            html.push("<li><span>" + step + "</span></li>");
+        });
+        cocktailSteps.innerHTML = html.join('');
+
+        body.className = 's6';
+    }
+
+    var getCocktails = function() {
+        var parseIngredientsAsUrl = function(ingredients) {
+            var url = "?";
+
+            ingredients.forEach(function(ingredient) {
+                if (url !== "?") url += "&";
+                url += "ing=" + ingredient;
+            });
+
+            return url;
+        };
+
+        var allIngredients = Array.prototype.slice.call(getElementsByName("ingredient"), 0);
+        var allSpirits = Array.prototype.slice.call(getElementsByName("spirit"), 0);
+        var allElems = [].concat(allIngredients, allSpirits);
+        var selIngredients = allElems.filter(function(item) {
+            return item.checked;
+        }).map(function(item) {
+            return querySelector("label[for=" + item.id + "]").innerText;
+        });
+
+        if (selIngredients && selIngredients.length > 0) {
+            callFetch(
+                "/api/v1/cocktails" + parseIngredientsAsUrl(selIngredients),
+                selIngredients,
+                fillCocktailData);
+        }
+    }
+
+    var getRandomCocktails = function() {
+        callFetch(
+            "/api/v1/cocktails/random", [],
+            fillCocktailData);
+    }
+
+    tk.startCounterToGetCocktails = function(randomCocktail) {
+        var counterDelay = 300;
+        var counter = 1;
+        var counterElem = getElementById("counter");
+
+        var increaseCounter = function() {
+            counterElem.innerText = counter;
+            counter++;
+
+            if (counter > 10) {
+                if (randomCocktail) {
+                    getRandomCocktails();
+                } else {
+                    getCocktails();
+                }
+            } else {
+                setTimeout(increaseCounter, counterDelay);
+            }
+        };
+
+        setTimeout(increaseCounter, counterDelay);
+    };
+
+    var hasClass = function(el, cls) {
+        return el.className && new RegExp("(\\s|^)" + cls + "(\\s|$)").test(el.className);
+    };
+    var addClass = function(el, cls) {
+        el.className += cls;
+    };
+    var removeClass = function(el, cls) {
+        el.className = el.className.replace(cls, "");
+    };
+
+    tk.filterSpiritsConcurrencyGuid = null;
+
+    tk.filterSpirits = function() {
+        var myFilterGuid = new Date().toJSON();
+        tk.filterSpiritsConcurrencyGuid = myFilterGuid;
+
+        var filterText = getElementById("SpiritFilter").value;
+
+        var allSpirits = Array.prototype.slice.call(getElementsByName("spirit"), 0);
+
+        try {
+            allSpirits.forEach(function(spirit) {
+                var newFilterIsRunning = tk.filterSpiritsConcurrencyGuid !== myFilterGuid;
+                if (newFilterIsRunning) throw {};
+
+                var id = spirit.id;
+                var listItem = spirit.parentElement;
+                var labelText = querySelector("label[for=" + id + "]").innerText;
+
+                var itMatches = !filterText || labelText.toUpperCase().indexOf(filterText.toUpperCase()) >= 0;
+                var hiddenButShouldBeVisible = (itMatches && hasClass(listItem, "hide")) || spirit.checked;
+                var visibleButShouldBeHidden = !itMatches && !hasClass(listItem, "hide") && !spirit.checked;
+
+                if (hiddenButShouldBeVisible) {
+                    removeClass(listItem, "hide");
+                } else if (visibleButShouldBeHidden) {
+                    addClass(listItem, "hide");
+                }
+            }, this);
+        } catch (e) {
+
+        }
+    }
+
+    tk.filterIngredientsConcurrencyGuid = null;
+
+    tk.filterIngredients = function() {
+        var myFilterGuid = new Date().toJSON();
+        tk.filterIngredientsConcurrencyGuid = myFilterGuid;
+
+        var filterText = getElementById("IngredientFilter").value;
+
+        var allIngredients = Array.prototype.slice.call(getElementsByName("ingredient"), 0);
+
+        try {
+            allIngredients.forEach(function(ingredient) {
+                var newFilterIsRunning = tk.filterIngredientsConcurrencyGuid !== myFilterGuid;
+                if (newFilterIsRunning) throw {};
+
+                var id = ingredient.id;
+                var listItem = ingredient.parentElement;
+                var labelText = querySelector("label[for=" + id + "]").innerText;
+
+                var itMatches = !filterText || labelText.toUpperCase().indexOf(filterText.toUpperCase()) >= 0;
+                var hiddenButShouldBeVisible = (itMatches && hasClass(listItem, "hide")) || ingredient.checked;
+                var visibleButShouldBeHidden = !itMatches && !hasClass(listItem, "hide") && !ingredient.checked;
+
+                if (hiddenButShouldBeVisible) {
+                    removeClass(listItem, "hide");
+                } else if (visibleButShouldBeHidden) {
+                    addClass(listItem, "hide");
+                }
+            }, this);
+        } catch (e) {
+
+        }
+    }
+
+    tk.startOver = function(reset) {
+        body.className = 's2';
+        if (reset) {
+            Array.prototype.slice.call(getElementsByTagName("input"), 0).filter(function(item) {
+                return item.checked;
+            }).map(function(item) {
+                item.checked = false;
+            });
+        }
+        return false;
+    };
+
+    function generateSpiritLists() {
+        var spiritsElement = getElementById('slist');
+        var spiritsArray = ['White Rum', 'Dry Vermouth', 'Tequila', 'Vodka', 'Gin', 'Cognac', 'Champagne', 'Cointreau', 'Bourbon', 'Calvados', 'Whiskey', 'Beer', 'Brandy', 'Jägermeister', 'Peach Schnapps', 'Limoncello', 'Scotch', 'Irish Whiskey', 'Orange bitters', 'Apricot Brandy', 'Irish Mist', 'Amaretto', 'Goldschläger'];
+        spiritsArray = spiritsArray.sort(function(a, b) {
+            return (a < b) ? -1 : (a > b) ? 1 : 0;
+        });
+        var html = [];
+        for (var i = 0, len = spiritsArray.length; i < len; i++) {
+            html.push(
+                "<li><input type=\"checkbox\" name=\"spirit\" id=\"s" + i + "\"><label for=\"s" + i + "\">" + spiritsArray[i] + "</label></li>"
+            );
+        }
+        spiritsElement.innerHTML = html.join('');
+    }
+
+    function generateIngredientLists() {
+        var ingredientElement = getElementById('ilist');
+        var ingredientsArray = ['Sugar Syrup', 'Lime Juice', 'Ice cubes', 'Sprite', 'Grapefruit Juice', 'Cherry', 'Lemon Juice', 'Club Soda', 'Honey', 'Ice', 'Tonic', 'Green Tea', 'Almond Milk', 'Cinnamon', 'Banana', 'Sugar Cube', 'Mint leaves', 'Cola', 'Irish Cream', 'Milk', 'Orange Juice', 'Pineapple Juice', 'Coconut Cream', 'Tabasco sauce', 'Basil', 'Sugar', 'Ice cream'];
+        ingredientsArray = ingredientsArray.sort(function(a, b) {
+            return (a < b) ? -1 : (a > b) ? 1 : 0;
+        });
+        var html = [];
+        for (var i = 0, len = ingredientsArray.length; i < len; i++) {
+            html.push(
+                "<li><input type=\"checkbox\" name=\"ingredient\" id=\"i" + i + "\"><label for=\"i" + i + "\">" + ingredientsArray[i] + "</label></li>");
+        }
+        ingredientElement.innerHTML = html.join('');
+    }
+
+    var handleEvents = function() {
+        var allIngredients = Array.prototype.slice.call(getElementsByName("ingredient"), 0);
+        allIngredients.forEach(function(ingredient) {
+            ingredient.addEventListener("change", function() {
+                if (querySelector('input[name="ingredient"]:checked')) {
+                    removeClass(getElementById("btn-add-ingredients"), "disabled");
+                } else {
+                    addClass(getElementById("btn-add-ingredients"), "disabled");
+                }
+                tk.filterIngredients();
+            });
+        });
+
+        // Spirits: enable/disable add button
+        var allSpirits = Array.prototype.slice.call(getElementsByName("spirit"), 0);
+        allSpirits.forEach(function(spirit) {
+            spirit.addEventListener("change", function() {
+                if (querySelector('input[name="spirit"]:checked')) {
+                    removeClass(getElementById("btn-add-spirits"), "disabled");
+                } else {
+                    addClass(getElementById("btn-add-spirits"), "disabled");
+                }
+            });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var elements = querySelectorAll('.next');
+        for (var i = 0, len = elements.length; i < len; i++) {
+            elements[i].addEventListener("click", function(event) {
+                event.preventDefault();
+                var number = this.dataset['next'];
+                body.className = 's' + number;
+            });
+        }
+
+        generateSpiritLists();
+        generateIngredientLists();
+
+        handleEvents();
+
+    });
+
+})();
+
+'use strict';
+
+function callFetch(url, params, cb) {
+    if (window.fetch) {
+        window.fetch(url, params)
+            .then(function(promise) {
+                return promise.json();
+            })
+            .then(cb)
+            .catch(function(error) {
+                console.error(error);
+            });
+        return;
+    } else {
+        var createXHR = function() {
+            var xhr;
+            if (!window.XMLHttpRequest) {
+                try {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {
+                    xhr = null;
+                }
+            } else {
+                xhr = new XMLHttpRequest();
+            }
+
+            return xhr;
+        };
+        var xhr = createXHR();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                cb(JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+    }
+}
+
+function getElementById(id) {
+    return document.getElementById(id);
+}
+
+function getElementsByTagName(tn) {
+    return document.getElementsByTagName(tn);
+}
+
+function querySelector(q) {
+    return document.querySelector(q);
+}
+
+function querySelectorAll(q) {
+    return document.querySelectorAll(q);
+}
+
+function getElementsByName(n) {
+    return document.getElementsByName(n);
+}
+'use strict';
+
+(function() {
+
+    var _iceCount = 5;
+    var _bubbleCount = 40;
+
+    function init() {
+
+        var lcs = document.getElementsByClassName("lc");
+        for (var k = 0; k < lcs.length; k++) {
+            var lc = lcs[k];
+
+            if (lc) {
+
+                //Initialize ice
+                var html = ['<div class=".container">'];
+                for (var i = 0; i < _iceCount; i++) {
+                    html.push(generateIce());
+                }
+
+                //Initialize bubbles
+                for (var j = 0; j < _bubbleCount; j++) {
+                    html.push(generateBubble());
+                }
+
+                html.push('</div>');
+
+                lc.innerHTML = html.join('');
+            }
+        }
+
+        //Initialize waves
+        var waves = document.getElementsByClassName("wave");
+        for (var k = 0; k < waves.length; k++) {
+            waves[k].innerHTML = generateWave();
+        }
+    }
+
+    function generateWave() {
+        var scaleSpeed = getRandomNumber(5, 10) + 's';
+        var traverseSpeed = getRandomNumber(10, 20) + 's';
+
+        var scaleCss = {
+            'animation-duration': scaleSpeed
+        };
+        var traverseCss = {
+            'animation-duration': traverseSpeed
+        };
+
+        var waveHtml = [];
+        waveHtml.push('<div class="container"><div class="wc" style="' + getCss(traverseCss) + '"><svg xmlns="http://www.w3.org/2000/svg" style="' + getCss(scaleCss) + '"  width="3275" height="150" class="waveSvg">')
+        waveHtml.push('<path stroke="transparent" d="M0 200V80c40-70 65-70 95 0s55 70 85 0 60-70 95 0 55 70 95 0 50-70 95 0 45 70 95 0 40-70 95 0v120z" class="shape" transform="scale(4 1)"/></svg></div></div>');
+
+        return waveHtml.join('');
+    }
+
+    function generateIce(top, left) {
+        top = typeof top == 'undefined' ? getRandomNumber(20, 85) + '%' : top;
+        left = typeof left == 'undefined' ? getRandomNumber(10, 90) + '%' : left;
+        var bobSpeed = getRandomNumber(2, 4) + 's';
+        var rotationSpeed = getRandomNumber(30, 50) + 's'; ///////////////////////////////////
+        var rotationAnimation = 'ice-rotation' + (getRandomBoolean() ? '' : '-reverse');
+
+        var iceCss = {
+            'top': top,
+            'left': left,
+            'animation-duration': bobSpeed
+        };
+
+        var innerCss = {
+            'animation-duration': rotationSpeed,
+            'animation-name': rotationAnimation
+        };
+
+        var innerHtml = '<div class="inner" style="' + getCss(innerCss) + '">&nbsp;</div>'
+        var iceHtml = '<div class="ice" style="' + getCss(iceCss) + '">' + innerHtml + '</div>';
+
+        return iceHtml;
+    }
+
+    function generateBubble() {
+        var left = getRandomNumber(0, 100);
+        var bubbleSize = getRandomNumber(3, 10);
+        var bubbleRadius = bubbleSize / 2;
+        var opacity = getRandomNumber(0.1, 0.5);
+        var bubbleSpeed = getRandomNumber(5, 20) + 's';
+        var wiggleSpeed = getRandomNumber(1, 2) + 's';
+        var wiggleAnimation = 'bubble-wiggle' + (getRandomBoolean() ? '' : '-reverse');
+
+        var outerCss = {
+            'animation-duration': bubbleSpeed
+        };
+        var bubbleCss = {
+            'left': left + '%',
+            'animation-duration': wiggleSpeed
+        };
+
+        var circleSvg = '<svg height="' + bubbleSize + '" width="' + bubbleSize + '" opacity="' + opacity + '"><circle cx="' + bubbleRadius + '" cy="' + bubbleRadius + '" r="' + bubbleRadius + '" fill="white" /></svg>';
+        var outerHtml = '<div class="outer" style="' + getCss(outerCss) + '"><div class="inner">' + circleSvg + '</div></div>';
+        var bubbleHtml = '<div class="bubble" style="' + getCss(bubbleCss) + '">' + outerHtml + '</div>';
+
+        return bubbleHtml;
+    }
+
+    function getRandomNumber(min, max) {
+        return min + (Math.random() * (max - min));
+    }
+
+    function getRandomBoolean() {
+        return Math.random() > 0.5;
+    }
+
+    function getCss(css) {
+        var style = '';
+        for (var prop in css) {
+            style += prop + ': ' + css[prop] + ';';
+        }
+
+        return style;
+    }
+
+
+    init();
+
+})();

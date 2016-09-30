@@ -181,14 +181,14 @@ var tk = {};
 
     function generateSpiritLists() {
         var spiritsElement = getElementById('slist');
-        var spiritsArray = ['white rum', 'dry vermouth', 'tequila', 'vodka', 'gin', 'angostura', 'cognac', 'champagne', 'Cointreau', 'Bourbon', 'Calvados', 'Triple sec', 'lager', 'whiskey', 'Elderflower liqueur', 'beer', 'brandy', 'canadian whisky', 'blackcurrant liqueur', 'gold rum', 'dark rum', 'jägermeister', 'coconut rum', 'Sloe gin', 'peach schnapps', 'limoncello', 'Scotch', 'irish whiskey', 'peppermint schnapps', 'black raspberry liqueur', 'coffee liqueur', 'cherry liqueur', 'stout beer', 'Orange Bitters', 'apricot brandy', 'sweet vermouth', 'Irish Mist', 'Amaretto', 'Goldschläger'];
+        var spiritsArray = ['White Rum', 'Dry Vermouth', 'Tequila', 'Vodka', 'Gin', 'Cognac', 'Champagne', 'Cointreau', 'Bourbon', 'Calvados', 'Whiskey', 'Beer', 'Brandy', 'Jägermeister', 'Peach Schnapps', 'Limoncello', 'Scotch', 'Irish Whiskey', 'Orange bitters', 'Apricot Brandy', 'Irish Mist', 'Amaretto', 'Goldschläger'];
         spiritsArray = spiritsArray.sort(function(a, b) {
             return (a < b) ? -1 : (a > b) ? 1 : 0;
         });
         var html = [];
         for (var i = 0, len = spiritsArray.length; i < len; i++) {
             html.push(
-                "<li><input type=\"checkbox\" name=\"spirit\" id=\"s" + i + "\"><label for=\"s" + i + "\">" + capitalizeFirstLetter(spiritsArray[i].toLowerCase()) + "</label></li>"
+                "<li><input type=\"checkbox\" name=\"spirit\" id=\"s" + i + "\"><label for=\"s" + i + "\">" + spiritsArray[i] + "</label></li>"
             );
         }
         spiritsElement.innerHTML = html.join('');
@@ -196,14 +196,14 @@ var tk = {};
 
     function generateIngredientLists() {
         var ingredientElement = getElementById('ilist');
-        var ingredientsArray = ['sugar syrup', 'lime juice', 'ice cubes', 'Sprite', 'grapefruit juice', 'cherry', 'lemon juice', 'club soda', 'honey', 'ice', 'tonic', 'green tea', 'almond milk', 'cinnamon', 'banana', 'sugar cube', 'mint leaves', 'cola', 'irish cream', 'Crème de Cacao', 'milk', 'orange juice', 'pineapple juice', 'coconut cream', 'tabasco sauce', 'White Crème de Cacao', 'chocolate syrup', 'basil', 'sugar', 'ice cream'];
+        var ingredientsArray = ['Sugar Syrup', 'Lime Juice', 'Ice cubes', 'Sprite', 'Grapefruit Juice', 'Cherry', 'Lemon Juice', 'Club Soda', 'Honey', 'Ice', 'Tonic', 'Green Tea', 'Almond Milk', 'Cinnamon', 'Banana', 'Sugar Cube', 'Mint leaves', 'Cola', 'Irish Cream', 'Milk', 'Orange Juice', 'Pineapple Juice', 'Coconut Cream', 'Tabasco sauce', 'Basil', 'Sugar', 'Ice cream'];
         ingredientsArray = ingredientsArray.sort(function(a, b) {
             return (a < b) ? -1 : (a > b) ? 1 : 0;
         });
         var html = [];
         for (var i = 0, len = ingredientsArray.length; i < len; i++) {
             html.push(
-                "<li><input type=\"checkbox\" name=\"ingredient\" id=\"i" + i + "\"><label for=\"i" + i + "\">" + capitalizeFirstLetter(ingredientsArray[i]) + "</label></li>");
+                "<li><input type=\"checkbox\" name=\"ingredient\" id=\"i" + i + "\"><label for=\"i" + i + "\">" + ingredientsArray[i] + "</label></li>");
         }
         ingredientElement.innerHTML = html.join('');
     }
