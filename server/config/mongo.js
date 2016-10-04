@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 module.exports = function(app) {
     var connect = function() {
         var mongoLink = "";
-            mongoLink = `mongodb://${process.env.MONGO}`;
+            mongoLink = `mongodb://prototype_aka_part_readyonly:Dubai2020$@ds035776.mlab.com:35776/prototype_aka_part`;
         mongoose.connect(mongoLink, function(err, res) {
             if (err) {
                 debug('Error connecting to: ' + mongoLink + '. ' + err);
@@ -18,6 +18,6 @@ module.exports = function(app) {
     connect();
 
     mongoose.connection.on('error', console.log);
-    //mongoose.connection.on('disconnected', connect);
+    mongoose.connection.on('disconnected', connect);
     mongoose.Promise = require('bluebird');
 }
